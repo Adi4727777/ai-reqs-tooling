@@ -4,8 +4,8 @@ from PIL import Image
 from utils.memory_utils import llm_memory_GPU_distribution
 
 # Load Logos
-amd_logo = Image.open('./digital_assets/amd.png')
-nvidia_logo = Image.open('./digital_assets/nvidia.png')
+amd_logo = Image.open('./digital_assets/app/amd.png')
+nvidia_logo = Image.open('./digital_assets/app/nvidia.png')
 
 # Model Data Dictionary
 model_dictionaries = {
