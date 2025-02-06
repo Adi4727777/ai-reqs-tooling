@@ -1,7 +1,7 @@
 import streamlit as st
 from PIL import Image
 
-logo = Image.open('./digital_assets/app/toolbox_logo.png')
+logo = Image.open('./app/digital_assets/toolbox_logo.png')
 
 st.title('LLM Model Operations Toolbox')
 st.markdown('Tool for calculating various metrics that are valuable to operationalizing LLMs.')
