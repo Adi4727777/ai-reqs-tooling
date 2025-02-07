@@ -1,11 +1,14 @@
 import streamlit as st
 import requests
 from PIL import Image
-from utils.memory_utils import llm_memory_GPU_distribution
+from utils.memory_utils import llm_memory_GPU_distribution, calculate_memory
+
+#Flag if using endpoint config
+backend_endpoint = False 
 
 # Load Logos
-amd_logo = Image.open('./app/digital_assets/amd.png')
-nvidia_logo = Image.open('./app/digital_assets/nvidia.png')
+amd_logo = Image.open('./digital_assets/amd.png')
+nvidia_logo = Image.open('./digital_assets/nvidia.png')
 
 # Model Data Dictionary
 model_dictionaries = {
@@ -39,22 +42,33 @@ with st.sidebar:
     optimizer = st.selectbox("Optimizer", ["AdamW", "Adam", "bitsandbytes_8bit", "SGD-like"])
     percent_trainable_parameters = st.slider("% Trainable Parameters", min_value=1, max_value=100, value=100)
     
+
     if st.button("🔍 Calculate Memory Usage"):
-        URL = 'http://localhost:8000/calculate_memory'
-        DATA = {
-            'parameters': parameters, 'batch_size': batch_size, 'precision': precision,
-            'sequence_length': sequence_length, 'hidden_size': hidden_size,
-            'layer_count': layer_count, 'attention_heads': attention_heads,
-            'tensor_parallelism': tensor_parallelism, 'optimizer': optimizer,
-            'percent_trainable_parameters': percent_trainable_parameters
-        }
-        response = requests.post(url=URL, json=DATA)
-        st.session_state["response"] = response.json()
+
+        if backend_endpoint:
+            URL = 'http://localhost:8000/calculate_memory'
+            DATA = {
+                'parameters': parameters, 'batch_size': batch_size, 'precision': precision,
+                'sequence_length': sequence_length, 'hidden_size': hidden_size,
+                'layer_count': layer_count, 'attention_heads': attention_heads,
+                'tensor_parallelism': tensor_parallelism, 'optimizer': optimizer,
+                'percent_trainable_parameters': percent_trainable_parameters
+            }
+            response = requests.post(url=URL, json=DATA)
+            st.session_state["response"] = response.json()
+        else:
+            st.session_state["response"] = calculate_memory(parameters, batch_size, precision, sequence_length, hidden_size, layer_count, attention_heads,
+            tensor_parallelism, optimizer, percent_trainable_parameters)
+
         st.success("✅ Calculation Complete!")
 
 # Display Results
 if "response" in st.session_state:
-    response_data = st.session_state["response"]["Calculation"]
+
+    try:
+        response_data = st.session_state["response"]["Calculation"]
+    except:
+        response_data = st.session_state["response"]
     
     inference_tab, training_tab = st.tabs(["🚀 Inference", "🎯 Training"])
     
