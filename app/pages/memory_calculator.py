@@ -35,7 +35,7 @@ with st.sidebar:
     parameters = st.number_input("Parameters (B)", min_value=1, value=defaults.get("parameters", 1))
     batch_size = st.number_input("Batch Size", min_value=1, value=1)
     precision = st.selectbox("Precision", ["FP16", "8BIT", "4BIT", "FP32"])
-    sequence_length = st.number_input("Sequence Length", min_value=1, value=2048)
+    sequence_length = st.number_input("Sequence Length", min_value=1, value=2048, help="Considerations must be made for the context length support intended for training and inference. 2048 is just a placeholder based on Llama 3 limits.")
     hidden_size = st.number_input("Hidden Size", min_value=1, value=defaults.get("hidden_size", 1))
     layer_count = st.number_input("Layer Count", min_value=1, value=defaults.get("layer_count", 1))
     attention_heads = st.number_input("Attention Heads", min_value=1, value=defaults.get("attention_heads", 1))
