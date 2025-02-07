@@ -45,23 +45,12 @@ with st.sidebar:
     
 
     if st.button("🔍 Calculate Memory Usage"):
-
-        if backend_endpoint:
-            URL = 'http://localhost:8000/calculate_memory'
-            DATA = {
-                'parameters': parameters, 'batch_size': batch_size, 'precision': precision,
-                'sequence_length': sequence_length, 'hidden_size': hidden_size,
-                'layer_count': layer_count, 'attention_heads': attention_heads,
-                'tensor_parallelism': tensor_parallelism, 'optimizer': optimizer,
-                'percent_trainable_parameters': percent_trainable_parameters
-            }
-            response = requests.post(url=URL, json=DATA)
-            st.session_state["response"] = response.json()
-        else:
+        try:
             st.session_state["response"] = calculate_memory(parameters, batch_size, precision, sequence_length, hidden_size, layer_count, attention_heads,
             tensor_parallelism, optimizer, percent_trainable_parameters)
-
-        st.success("✅ Calculation Complete!")
+            st.success("✅ Calculation Complete!")
+        else:
+            st.warning("Calculation Failed!")
 
 # Display Results
 if "response" in st.session_state:
