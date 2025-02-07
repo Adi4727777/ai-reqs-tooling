@@ -7,8 +7,8 @@ from utils.memory_utils import llm_memory_GPU_distribution, calculate_memory
 backend_endpoint = False 
 
 # Load Logos
-amd_logo = Image.open('./digital_assets/amd.png')
-nvidia_logo = Image.open('./digital_assets/nvidia.png')
+amd_logo = Image.open('./app/digital_assets/amd.png')
+nvidia_logo = Image.open('./app/digital_assets/nvidia.png')
 
 # Model Data Dictionary
 model_dictionaries = {
