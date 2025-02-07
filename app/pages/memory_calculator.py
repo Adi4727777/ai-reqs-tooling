@@ -49,7 +49,7 @@ with st.sidebar:
             st.session_state["response"] = calculate_memory(parameters, batch_size, precision, sequence_length, hidden_size, layer_count, attention_heads,
             tensor_parallelism, optimizer, percent_trainable_parameters)
             st.success("✅ Calculation Complete!")
-        else:
+        except:
             st.warning("Calculation Failed!")
 
 # Display Results
