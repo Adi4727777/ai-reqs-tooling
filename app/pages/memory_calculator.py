@@ -19,6 +19,7 @@ model_dictionaries = {
     "DeepSeek-R1": {"parameters": 671, "hidden_size": 7168, "layer_count": 61, "attention_heads": 128},
 }
 
+
 Models = list(model_dictionaries.keys()) + ["Custom"]
 
 st.set_page_config(page_title="LLM Memory Calculator", layout="wide")
