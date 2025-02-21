@@ -35,7 +35,18 @@ with mcol0:
     model_a_serving_pricing = st.number_input(label='Model A - Serving Pricing', key='ma-pricing-input', min_value=0.0, step=0.000001, format="%.6f")
 
 with mcol1:
-    st.write("│")
+    st.markdown(
+        """
+        <style>
+        .vertical-line {
+            border-left: 2px solid gray;
+            height: 100%;
+        }
+        </style>
+        <div class="vertical-line"></div>
+        """,
+        unsafe_allow_html=True
+    )
 
 with mcol2:
     model_b_name = st.text_input("Model B Name", placeholder="Model B")
