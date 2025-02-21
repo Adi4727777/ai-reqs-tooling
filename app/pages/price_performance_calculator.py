@@ -24,7 +24,7 @@ with col1:
 
 st.write("----")
 st.subheader("Model Configurations🛠️")
-mcol0, mcol1, mcol2, mcol3, mcol4 = st.columns(5)
+mcol0, mcol1, mcol2, mcol3, mcol4, mcol5 = st.columns(6)
 
 with mcol0:
     model_a_name = st.text_input("Model A Name", placeholder="Model A")
@@ -35,6 +35,9 @@ with mcol0:
     model_a_serving_pricing = st.number_input(label='Model A - Serving Pricing', key='ma-pricing-input', min_value=0.0, step=0.000001, format="%.6f")
 
 with mcol1:
+    st.write("│")
+
+with mcol2:
     model_b_name = st.text_input("Model B Name", placeholder="Model B")
     model_b_throughput_MI300X = st.number_input(label='MI300X Output Token Throughput (tk/s)', key='ma21-input', min_value=0.0, step=1.0, value=1.0)
     model_b_throughput_MI325X = st.number_input(label='MI325X Output Token Throughput (tk/s)', key='ma22-input', min_value=0.0, step=1.0, value=1.0)
@@ -42,7 +45,7 @@ with mcol1:
     model_b_throughput_H200 = st.number_input(label='H200 Output Token Throughput (tk/s)', key='ma24-input', min_value=0.0, step=1.0, value=1.0)
     model_b_serving_pricing = st.number_input(label='Model B - Serving Pricing', key='mb-pricing-input', min_value=0.0, step=0.000001, format="%.6f")
 
-with mcol2:
+with mcol3:
     model_c_name = st.text_input("Model C Name", placeholder="Model C")
     model_c_throughput_MI300X = st.number_input(label='MI300X Output Token Throughput (tk/s)', key='ma31-input', min_value=0.0, step=1.0, value=1.0)
     model_c_throughput_MI325X = st.number_input(label='MI325X Output Token Throughput (tk/s)', key='ma32-input', min_value=0.0, step=1.0, value=1.0)
@@ -50,16 +53,15 @@ with mcol2:
     model_c_throughput_H200 = st.number_input(label='H200 Output Token Throughput (tk/s)', key='ma34-input', min_value=0.0, step=1.0, value=1.0)
     model_c_serving_pricing = st.number_input(label='Model C - Serving Pricing', key='mc-pricing-input', min_value=0.0, step=0.000001, format="%.6f")
 
-with mcol3:
+with mcol4:
     model_d_name = st.text_input("Model D Name", placeholder="Model D")
     model_d_throughput_MI300X = st.number_input(label='MI300X Output Token Throughput (tk/s)', key='ma41-input', min_value=0.0, step=1.0, value=1.0)
     model_d_throughput_MI325X = st.number_input(label='MI325X Output Token Throughput (tk/s)', key='ma42-input', min_value=0.0, step=1.0, value=1.0)
     model_d_throughput_H100 = st.number_input(label='H100 Output Token Throughput (tk/s)', key='ma43-input', min_value=0.0, step=1.0, value=1.0)
     model_d_throughput_H200 = st.number_input(label='H200 Output Token Throughput (tk/s)', key='ma44-input', min_value=0.0, step=1.0, value=1.0)
     model_d_serving_pricing = st.number_input(label='Model D - Serving Pricing', key='md-pricing-input', min_value=0.0, step=0.000001, format="%.6f")
-    st.write("│")
 
-with mcol4:
+with mcol5:
     model_e_name = st.text_input("Model E Name", placeholder="Model E")
     model_e_throughput_MI300X = st.number_input(label='MI300X Output Token Throughput (tk/s)', key='ma51-input', min_value=0.0, step=1.0, value=1.0)
     model_e_throughput_MI325X = st.number_input(label='MI325X Output Token Throughput (tk/s)', key='ma52-input', min_value=0.0, step=1.0, value=1.0)
