@@ -44,6 +44,7 @@ with mcol2:
     model_b_throughput_H100 = st.number_input(label='H100 Output Token Throughput (tk/s)', key='ma23-input', min_value=0.0, step=1.0, value=1.0)
     model_b_throughput_H200 = st.number_input(label='H200 Output Token Throughput (tk/s)', key='ma24-input', min_value=0.0, step=1.0, value=1.0)
     model_b_serving_pricing = st.number_input(label='Model B - Serving Pricing', key='mb-pricing-input', min_value=0.0, step=0.000001, format="%.6f")
+    st.markdown("<div style='border-left: 2px solid black; height: 100vh'></div>", unsafe_allow_html=True)
 
 with mcol3:
     model_c_name = st.text_input("Model C Name", placeholder="Model C")
