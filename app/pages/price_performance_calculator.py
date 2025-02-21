@@ -57,6 +57,7 @@ with mcol3:
     model_d_throughput_H100 = st.number_input(label='H100 Output Token Throughput (tk/s)', key='ma43-input', min_value=0.0, step=1.0, value=1.0)
     model_d_throughput_H200 = st.number_input(label='H200 Output Token Throughput (tk/s)', key='ma44-input', min_value=0.0, step=1.0, value=1.0)
     model_d_serving_pricing = st.number_input(label='Model D - Serving Pricing', key='md-pricing-input', min_value=0.0, step=0.000001, format="%.6f")
+    st.write("│")
 
 with mcol4:
     model_e_name = st.text_input("Model E Name", placeholder="Model E")
