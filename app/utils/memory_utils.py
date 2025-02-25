@@ -101,10 +101,10 @@ def calculate_memory(
     standard_training_total_memory_gb = (
         model_weights_memory + kv_cache_memory + activations_memory + 
         ((optimizer_memory + gradient_memory) * (percent_trainable_parameters / 100))
-    )
+    )*1.05
     
     # Total inference memory
-    standard_inference_total_memory_gb = model_weights_memory + kv_cache_memory + activations_memory
+    standard_inference_total_memory_gb = (model_weights_memory + kv_cache_memory + activations_memory)*1.05
 
     return {
         "model_weights_memory": model_weights_memory,
