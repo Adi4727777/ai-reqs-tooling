@@ -25,6 +25,7 @@ Models = list(model_dictionaries.keys()) + ["Custom"]
 
 st.set_page_config(page_title="LLM Memory Calculator", layout="wide")
 st.title("📊 LLM Memory Requirement Calculator")
+st.write("All total memory requirements include and additional 5% memory buffer to account for minor calculation errors and to reserve compute for background tasks")
 
 with st.sidebar:
     st.header("⚙️ Model Configuration")
