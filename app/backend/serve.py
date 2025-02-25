@@ -47,8 +47,8 @@ async def calculate_memory(payload: Memory):
 
     standard_training_total_memory_gb = (
         model_weights_memory + kv_cache_memory + activations_memory + ((optimizer_memory + gradient_memory) * (percent_trainable_parameters / 100))
-    )
-    standard_inference_total_memory_gb = model_weights_memory + kv_cache_memory + activations_memory
+    )*1.05
+    standard_inference_total_memory_gb = (model_weights_memory + kv_cache_memory + activations_memory)*1.05
 
 
     RESULTS = {'model_weights_memory':model_weights_memory, 'kv_cache_memory':kv_cache_memory, 'activations_memory':activations_memory,
