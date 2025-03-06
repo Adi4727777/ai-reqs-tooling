@@ -32,7 +32,7 @@ with mcol0:
     model_a_throughput_MI325X = st.number_input(label='MI325X Output Token Throughput (tk/s)', key='ma12-input', min_value=0.0, step=1.0, value=1.0)
     model_a_throughput_H100 = st.number_input(label='H100 Output Token Throughput (tk/s)', key='ma13-input', min_value=0.0, step=1.0, value=1.0)
     model_a_throughput_H200 = st.number_input(label='H200 Output Token Throughput (tk/s)', key='ma14-input', min_value=0.0, step=1.0, value=1.0)
-    model_a_serving_pricing = st.number_input(label='Model A - Serving Pricing', key='ma-pricing-input', min_value=0.0, step=0.000001, format="%.6f")
+    model_a_1M_tk_value = st.number_input(label='Model A - Value of 1M Output Tokens', key='ma-pricing-input', min_value=0.0, step=0.000001, format="%.6f")
 
 with mcol1:
     model_b_name = st.text_input("Model B Name", placeholder="Model B")
@@ -40,7 +40,7 @@ with mcol1:
     model_b_throughput_MI325X = st.number_input(label='MI325X Output Token Throughput (tk/s)', key='ma22-input', min_value=0.0, step=1.0, value=1.0)
     model_b_throughput_H100 = st.number_input(label='H100 Output Token Throughput (tk/s)', key='ma23-input', min_value=0.0, step=1.0, value=1.0)
     model_b_throughput_H200 = st.number_input(label='H200 Output Token Throughput (tk/s)', key='ma24-input', min_value=0.0, step=1.0, value=1.0)
-    model_b_serving_pricing = st.number_input(label='Model B - Serving Pricing', key='mb-pricing-input', min_value=0.0, step=0.000001, format="%.6f")
+    model_b_1M_tk_value = st.number_input(label='Model B - Value of 1M Output Tokens', key='mb-pricing-input', min_value=0.0, step=0.000001, format="%.6f")
 
 with mcol2:
     model_c_name = st.text_input("Model C Name", placeholder="Model C")
@@ -48,7 +48,7 @@ with mcol2:
     model_c_throughput_MI325X = st.number_input(label='MI325X Output Token Throughput (tk/s)', key='ma32-input', min_value=0.0, step=1.0, value=1.0)
     model_c_throughput_H100 = st.number_input(label='H100 Output Token Throughput (tk/s)', key='ma33-input', min_value=0.0, step=1.0, value=1.0)
     model_c_throughput_H200 = st.number_input(label='H200 Output Token Throughput (tk/s)', key='ma34-input', min_value=0.0, step=1.0, value=1.0)
-    model_c_serving_pricing = st.number_input(label='Model C - Serving Pricing', key='mc-pricing-input', min_value=0.0, step=0.000001, format="%.6f")
+    model_c_1M_tk_value = st.number_input(label='Model C - Value of 1M Output Tokens', key='mc-pricing-input', min_value=0.0, step=0.000001, format="%.6f")
 
 with mcol3:
     model_d_name = st.text_input("Model D Name", placeholder="Model D")
@@ -56,7 +56,7 @@ with mcol3:
     model_d_throughput_MI325X = st.number_input(label='MI325X Output Token Throughput (tk/s)', key='ma42-input', min_value=0.0, step=1.0, value=1.0)
     model_d_throughput_H100 = st.number_input(label='H100 Output Token Throughput (tk/s)', key='ma43-input', min_value=0.0, step=1.0, value=1.0)
     model_d_throughput_H200 = st.number_input(label='H200 Output Token Throughput (tk/s)', key='ma44-input', min_value=0.0, step=1.0, value=1.0)
-    model_d_serving_pricing = st.number_input(label='Model D - Serving Pricing', key='md-pricing-input', min_value=0.0, step=0.000001, format="%.6f")
+    model_d_1M_tk_value = st.number_input(label='Model D - Value of 1M Output Tokens', key='md-pricing-input', min_value=0.0, step=0.000001, format="%.6f")
 
 with mcol4:
     model_e_name = st.text_input("Model E Name", placeholder="Model E")
@@ -64,7 +64,7 @@ with mcol4:
     model_e_throughput_MI325X = st.number_input(label='MI325X Output Token Throughput (tk/s)', key='ma52-input', min_value=0.0, step=1.0, value=1.0)
     model_e_throughput_H100 = st.number_input(label='H100 Output Token Throughput (tk/s)', key='ma5-input', min_value=0.0, step=1.0, value=1.0)
     model_e_throughput_H200 = st.number_input(label='H200 Output Token Throughput (tk/s)', key='ma54-input', min_value=0.0, step=1.0, value=1.0)
-    model_e_serving_pricing = st.number_input(label='Model E - Serving Pricing', key='me-pricing-input', min_value=0.0, step=0.000001, format="%.6f")
+    model_e_1M_tk_value = st.number_input(label='Model E - Value of 1M Output Tokens', key='me-pricing-input', min_value=0.0, step=0.000001, format="%.6f")
 
 st.write("----")
 
@@ -120,7 +120,7 @@ model_names = [
 # Create a summary table.
 data = {
     "Model": model_names,
-    "Serving Price ($ per token)": [model_a_serving_pricing, model_b_serving_pricing, model_c_serving_pricing, model_d_serving_pricing, model_e_serving_pricing],
+    "Value of 1M Output Tokens ($ per 1M token)": [model_a_1M_tk_value, model_b_1M_tk_value, model_c_1M_tk_value, model_d_1M_tk_value, model_e_1M_tk_value],
     "MI300x Cost for 1M output tokens ($)": [a_1M_MI300x, b_1M_MI300x, c_1M_MI300x, d_1M_MI300x, e_1M_MI300x],
     "H100 Cost for 1M output tokens ($)": [a_1M_H100, b_1M_H100, c_1M_H100, d_1M_H100, e_1M_H100],
     "MI300x Cost per token ($)": [a_token_MI300x, b_token_MI300x, c_token_MI300x, d_token_MI300x, e_token_MI300x],
@@ -143,7 +143,7 @@ styled_df = df.style.format(
         "Cost for 1M output tokens ($)": "{:,.2f}",
         "Cost per token ($)": "{:.8f}",
         "Cost per prompt ($)": "{:,.6f}",
-        "Serving Price ($ per token)": "{:.6f}"
+        "Value of 1M Output Tokens ($ per 1M token)": "{:.6f}"
     }
 )
 
@@ -160,7 +160,7 @@ st.subheader("Visualization of Inference Price/Performance Metrics 📊")
 # Allow user to select metrics to visualize
 selected_metrics = []
 metrics = {
-    "Serving Price ($ per token)": "Serving Price ($ per token)",
+    "Value of 1M Output Tokens ($ per 1M token)": "Value of 1M Output Tokens ($ per 1M token)",
     "MI300x Cost for 1M output tokens ($)": "MI300x Cost for 1M output tokens ($)",
     "H100 Cost for 1M output tokens ($)": "H100 Cost for 1M output tokens ($)",
     "MI300x Cost per token ($)": "MI300x Cost per token ($)",
