@@ -15,7 +15,6 @@ model_dictionaries = {
     "Llama 3 70B Instruct": {"parameters": 70, "hidden_size": 8192, "layer_count": 80, "attention_heads": 64},
     "Llama 3 8B Instruct": {"parameters": 8, "hidden_size": 4096, "layer_count": 32, "attention_heads": 32},
     "Qwen 72B Instruct": {"parameters": 72, "hidden_size": 8192, "layer_count": 80, "attention_heads": 64},
-    "Mixtral 8x7B": {"parameters": 47, "hidden_size": 4096, "layer_count": 32, "attention_heads": 32},
     "DeepSeek-R1": {"parameters": 671, "hidden_size": 7168, "layer_count": 61, "attention_heads": 128},
     "Llama 3.1 405B": {"parameters": 405, "hidden_size": 16384, "layer_count": 126, "attention_heads": 128},
 }
