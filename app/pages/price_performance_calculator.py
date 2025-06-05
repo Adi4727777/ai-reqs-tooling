@@ -117,7 +117,7 @@ a_1M_H100, a_token_H100, a_prompt_H100 = calculate_costs(model_a_throughput_H100
 b_1M_H100, b_token_H100, b_prompt_H100 = calculate_costs(model_b_throughput_H100, H100_hourly_costs, input_sequence_length, output_sequence_length)
 c_1M_H100, c_token_H100, c_prompt_H100 = calculate_costs(model_c_throughput_H100, H100_hourly_costs, input_sequence_length, output_sequence_length)
 d_1M_H100, d_token_H100, d_prompt_H100 = calculate_costs(model_d_throughput_H100, H100_hourly_costs, input_sequence_length, output_sequence_length)
-e_1M_H100, e_token_H100, e_prompt_H100 = calculate_costs(model_e_throughput_H100, H200_hourly_costs, input_sequence_length, output_sequence_length)
+e_1M_H100, e_token_H100, e_prompt_H100 = calculate_costs(model_e_throughput_H100, H100_hourly_costs, input_sequence_length, output_sequence_length)
 
 #H200
 a_1M_H200, a_token_H200, a_prompt_H200 = calculate_costs(model_a_throughput_H200, H200_hourly_costs, input_sequence_length, output_sequence_length)
