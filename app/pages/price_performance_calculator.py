@@ -15,6 +15,8 @@ with col0:
     H200_hourly_costs = st.number_input(label='H200 Hourly Costs', key='h200 cost', min_value=0.0, step=0.1, value=80.0)
     MI300x_hourly_costs = st.number_input(label='MI300x Hourly Costs', key='MI300x cost', min_value=0.0, step=0.1, value=48.0)
     MI325x_hourly_costs = st.number_input(label='MI325x Hourly Costs', key='MI325x cost', min_value=0.0, step=0.1)
+    MI355x_hourly_costs = st.number_input(label='MI355x Hourly Costs', key='MI355x cost', min_value=0.0, step=0.1)
+    B200_hourly_costs = st.number_input(label='B200 Hourly Costs', key='B200 cost', min_value=0.0, step=0.1)
 
 with col1:
     st.write("Test Configuration 🧪")
@@ -30,40 +32,50 @@ with mcol0:
     model_a_name = st.text_input("Model A Name", placeholder="Model A")
     model_a_throughput_MI300X = st.number_input(label='MI300X Output Token Throughput (tk/s)', key='ma11-input', min_value=0.0, step=1.0, value=1.0)
     model_a_throughput_MI325X = st.number_input(label='MI325X Output Token Throughput (tk/s)', key='ma12-input', min_value=0.0, step=1.0, value=1.0)
+    model_a_throughput_MI355X = st.number_input(label='MI355X Output Token Throughput (tk/s)', key='ma15-input', min_value=0.0, step=1.0, value=1.0)
     model_a_throughput_H100 = st.number_input(label='H100 Output Token Throughput (tk/s)', key='ma13-input', min_value=0.0, step=1.0, value=1.0)
     model_a_throughput_H200 = st.number_input(label='H200 Output Token Throughput (tk/s)', key='ma14-input', min_value=0.0, step=1.0, value=1.0)
+    model_a_throughput_B200 = st.number_input(label='B200 Output Token Throughput (tk/s)', key='ma16-input', min_value=0.0, step=1.0, value=1.0)
     model_a_1M_tk_value = st.number_input(label='Model A - Value of 1M Output Tokens', key='ma-pricing-input', min_value=0.0, step=0.000001, format="%.6f")
 
 with mcol1:
     model_b_name = st.text_input("Model B Name", placeholder="Model B")
     model_b_throughput_MI300X = st.number_input(label='MI300X Output Token Throughput (tk/s)', key='ma21-input', min_value=0.0, step=1.0, value=1.0)
     model_b_throughput_MI325X = st.number_input(label='MI325X Output Token Throughput (tk/s)', key='ma22-input', min_value=0.0, step=1.0, value=1.0)
+    model_b_throughput_MI355X = st.number_input(label='MI355X Output Token Throughput (tk/s)', key='ma25-input', min_value=0.0, step=1.0, value=1.0)
     model_b_throughput_H100 = st.number_input(label='H100 Output Token Throughput (tk/s)', key='ma23-input', min_value=0.0, step=1.0, value=1.0)
     model_b_throughput_H200 = st.number_input(label='H200 Output Token Throughput (tk/s)', key='ma24-input', min_value=0.0, step=1.0, value=1.0)
+    model_b_throughput_B200 = st.number_input(label='B200 Output Token Throughput (tk/s)', key='ma26-input', min_value=0.0, step=1.0, value=1.0)
     model_b_1M_tk_value = st.number_input(label='Model B - Value of 1M Output Tokens', key='mb-pricing-input', min_value=0.0, step=0.000001, format="%.6f")
 
 with mcol2:
     model_c_name = st.text_input("Model C Name", placeholder="Model C")
     model_c_throughput_MI300X = st.number_input(label='MI300X Output Token Throughput (tk/s)', key='ma31-input', min_value=0.0, step=1.0, value=1.0)
     model_c_throughput_MI325X = st.number_input(label='MI325X Output Token Throughput (tk/s)', key='ma32-input', min_value=0.0, step=1.0, value=1.0)
+    model_c_throughput_MI355X = st.number_input(label='MI355X Output Token Throughput (tk/s)', key='ma35-input', min_value=0.0, step=1.0, value=1.0)
     model_c_throughput_H100 = st.number_input(label='H100 Output Token Throughput (tk/s)', key='ma33-input', min_value=0.0, step=1.0, value=1.0)
     model_c_throughput_H200 = st.number_input(label='H200 Output Token Throughput (tk/s)', key='ma34-input', min_value=0.0, step=1.0, value=1.0)
+    model_c_throughput_B200 = st.number_input(label='B200 Output Token Throughput (tk/s)', key='ma36-input', min_value=0.0, step=1.0, value=1.0)
     model_c_1M_tk_value = st.number_input(label='Model C - Value of 1M Output Tokens', key='mc-pricing-input', min_value=0.0, step=0.000001, format="%.6f")
 
 with mcol3:
     model_d_name = st.text_input("Model D Name", placeholder="Model D")
     model_d_throughput_MI300X = st.number_input(label='MI300X Output Token Throughput (tk/s)', key='ma41-input', min_value=0.0, step=1.0, value=1.0)
     model_d_throughput_MI325X = st.number_input(label='MI325X Output Token Throughput (tk/s)', key='ma42-input', min_value=0.0, step=1.0, value=1.0)
+    model_d_throughput_MI355X = st.number_input(label='MI355X Output Token Throughput (tk/s)', key='ma45-input', min_value=0.0, step=1.0, value=1.0)
     model_d_throughput_H100 = st.number_input(label='H100 Output Token Throughput (tk/s)', key='ma43-input', min_value=0.0, step=1.0, value=1.0)
     model_d_throughput_H200 = st.number_input(label='H200 Output Token Throughput (tk/s)', key='ma44-input', min_value=0.0, step=1.0, value=1.0)
+    model_d_throughput_B200 = st.number_input(label='B200 Output Token Throughput (tk/s)', key='ma46-input', min_value=0.0, step=1.0, value=1.0)
     model_d_1M_tk_value = st.number_input(label='Model D - Value of 1M Output Tokens', key='md-pricing-input', min_value=0.0, step=0.000001, format="%.6f")
 
 with mcol4:
     model_e_name = st.text_input("Model E Name", placeholder="Model E")
     model_e_throughput_MI300X = st.number_input(label='MI300X Output Token Throughput (tk/s)', key='ma51-input', min_value=0.0, step=1.0, value=1.0)
     model_e_throughput_MI325X = st.number_input(label='MI325X Output Token Throughput (tk/s)', key='ma52-input', min_value=0.0, step=1.0, value=1.0)
+    model_e_throughput_MI355X = st.number_input(label='MI355X Output Token Throughput (tk/s)', key='ma55-input', min_value=0.0, step=1.0, value=1.0)
     model_e_throughput_H100 = st.number_input(label='H100 Output Token Throughput (tk/s)', key='ma5-input', min_value=0.0, step=1.0, value=1.0)
     model_e_throughput_H200 = st.number_input(label='H200 Output Token Throughput (tk/s)', key='ma54-input', min_value=0.0, step=1.0, value=1.0)
+    model_e_throughput_B200 = st.number_input(label='B200 Output Token Throughput (tk/s)', key='ma56-input', min_value=0.0, step=1.0, value=1.0)
     model_e_1M_tk_value = st.number_input(label='Model E - Value of 1M Output Tokens', key='me-pricing-input', min_value=0.0, step=0.000001, format="%.6f")
 
 st.write("----")
@@ -93,6 +105,13 @@ c_1M_MI325x, c_token_MI325x, c_prompt_MI325x = calculate_costs(model_c_throughpu
 d_1M_MI325x, d_token_MI325x, d_prompt_MI325x = calculate_costs(model_d_throughput_MI325X, MI325x_hourly_costs, input_sequence_length, output_sequence_length)
 e_1M_MI325x, e_token_MI325x, e_prompt_MI325x = calculate_costs(model_e_throughput_MI325X, MI325x_hourly_costs, input_sequence_length, output_sequence_length)
 
+#MI355x
+a_1M_MI355x, a_token_MI355x, a_prompt_MI355x = calculate_costs(model_a_throughput_MI355X, MI355x_hourly_costs, input_sequence_length, output_sequence_length)
+b_1M_MI355x, b_token_MI355x, b_prompt_MI355x = calculate_costs(model_b_throughput_MI355X, MI355x_hourly_costs, input_sequence_length, output_sequence_length)
+c_1M_MI355x, c_token_MI355x, c_prompt_MI355x = calculate_costs(model_c_throughput_MI355X, MI355x_hourly_costs, input_sequence_length, output_sequence_length)
+d_1M_MI355x, d_token_MI355x, d_prompt_MI355x = calculate_costs(model_d_throughput_MI355X, MI355x_hourly_costs, input_sequence_length, output_sequence_length)
+e_1M_MI355x, e_token_MI355x, e_prompt_MI355x = calculate_costs(model_e_throughput_MI355X, MI355x_hourly_costs, input_sequence_length, output_sequence_length)
+
 #H100
 a_1M_H100, a_token_H100, a_prompt_H100 = calculate_costs(model_a_throughput_H100, H100_hourly_costs, input_sequence_length, output_sequence_length)
 b_1M_H100, b_token_H100, b_prompt_H100 = calculate_costs(model_b_throughput_H100, H100_hourly_costs, input_sequence_length, output_sequence_length)
@@ -106,6 +125,13 @@ b_1M_H200, b_token_H200, b_prompt_H200 = calculate_costs(model_b_throughput_H200
 c_1M_H200, c_token_H200, c_prompt_H200 = calculate_costs(model_c_throughput_H200, H200_hourly_costs, input_sequence_length, output_sequence_length)
 d_1M_H200, d_token_H200, d_prompt_H200 = calculate_costs(model_d_throughput_H200, H200_hourly_costs, input_sequence_length, output_sequence_length)
 e_1M_H200, e_token_H200, e_prompt_H200 = calculate_costs(model_e_throughput_H200, H200_hourly_costs, input_sequence_length, output_sequence_length)
+
+#B200
+a_1M_B200, a_token_B200, a_prompt_B200 = calculate_costs(model_a_throughput_B200, B200_hourly_costs, input_sequence_length, output_sequence_length)
+b_1M_B200, b_token_B200, b_prompt_B200 = calculate_costs(model_b_throughput_B200, B200_hourly_costs, input_sequence_length, output_sequence_length)
+c_1M_B200, c_token_B200, c_prompt_B200 = calculate_costs(model_c_throughput_B200, B200_hourly_costs, input_sequence_length, output_sequence_length)
+d_1M_B200, d_token_B200, d_prompt_B200 = calculate_costs(model_d_throughput_B200, B200_hourly_costs, input_sequence_length, output_sequence_length)
+e_1M_B200, e_token_B200, e_prompt_B200 = calculate_costs(model_e_throughput_B200, B200_hourly_costs, input_sequence_length, output_sequence_length)
 
 
 # Use custom names if provided, otherwise use default names
@@ -128,11 +154,17 @@ data = {
     "MI300x Cost per prompt ($)": [a_prompt_MI300x, b_prompt_MI300x, c_prompt_MI300x, d_prompt_MI300x, e_prompt_MI300x],
     "H100 Cost per prompt ($)": [a_prompt_H100, b_prompt_H100, c_prompt_H100, d_prompt_H100, e_prompt_H100],
     "MI325x Cost for 1M output tokens ($)": [a_1M_MI325x, b_1M_MI325x, c_1M_MI325x, d_1M_MI325x, e_1M_MI325x],
+    "MI355x Cost for 1M output tokens ($)": [a_1M_MI355x, b_1M_MI355x, c_1M_MI355x, d_1M_MI355x, e_1M_MI355x],
     "H200 Cost for 1M output tokens ($)": [a_1M_H200, b_1M_H200, c_1M_H200, d_1M_H200, e_1M_H200],
+    "B200 Cost for 1M output tokens ($)": [a_1M_B200, b_1M_B200, c_1M_B200, d_1M_B200, e_1M_B200],
     "MI325x Cost per token ($)": [a_token_MI325x, b_token_MI325x, c_token_MI325x, d_token_MI325x, e_token_MI325x],
+    "MI355x Cost per token ($)": [a_token_MI355x, b_token_MI355x, c_token_MI355x, d_token_MI355x, e_token_MI355x],
     "H200 Cost per token ($)": [a_token_H200, b_token_H200, c_token_H200, d_token_H200, e_token_H200],
+    "B200 Cost per token ($)": [a_token_B200, b_token_B200, c_token_B200, d_token_B200, e_token_B200],
     "MI325x Cost per prompt ($)": [a_prompt_MI325x, b_prompt_MI325x, c_prompt_MI325x, d_prompt_MI325x, e_prompt_MI325x],
+    "MI355x Cost per prompt ($)": [a_prompt_MI355x, b_prompt_MI355x, c_prompt_MI355x, d_prompt_MI355x, e_prompt_MI355x],
     "H200 Cost per prompt ($)": [a_prompt_H200, b_prompt_H200, c_prompt_H200, d_prompt_H200, e_prompt_H200],
+    "B200 Cost per prompt ($)": [a_prompt_B200, b_prompt_B200, c_prompt_B200, d_prompt_B200, e_prompt_B200],
     
 }
 
@@ -168,11 +200,17 @@ metrics = {
     "MI300x Cost per prompt ($)": "MI300x Cost per prompt ($)",
     "H100 Cost per prompt ($)": "H100 Cost per prompt ($)",
     "MI325x Cost for 1M output tokens ($)": "MI325x Cost for 1M output tokens ($)",
+    "MI355x Cost for 1M output tokens ($)": "MI355x Cost for 1M output tokens ($)",
     "H200 Cost for 1M output tokens ($)": "H200 Cost for 1M output tokens ($)",
+    "B200 Cost for 1M output tokens ($)": "B200 Cost for 1M output tokens ($)",
     "MI325x Cost per token ($)": "MI325x Cost per token ($)",
+    "MI355x Cost per token ($)": "MI355x Cost per token ($)",
     "H200 Cost per token ($)": "H200 Cost per token ($)",
+    "B200 Cost per token ($)": "B200 Cost per token ($)",
     "MI325x Cost per prompt ($)": "MI325x Cost per prompt ($)",
-    "H200 Cost per prompt ($)": "H200 Cost per prompt ($)"
+    "MI355x Cost per prompt ($)": "MI355x Cost per prompt ($)",
+    "H200 Cost per prompt ($)": "H200 Cost per prompt ($)",
+    "B200 Cost per prompt ($)": "B200 Cost per prompt ($)"
 }
 
 col1, col2 = st.columns(2)

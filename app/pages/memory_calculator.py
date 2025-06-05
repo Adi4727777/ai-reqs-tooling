@@ -78,16 +78,18 @@ if "response" in st.session_state:
         st.write(f"- **Gradient Memory**: {response_data['gradient_memory']:.2f} GB")
     
     st.subheader("🖥️ GPU Requirements")
-    col1, col2, col3, col4 = st.columns(4)
-    
+    col1, col2, col3, col4, col5, col6 = st.columns(6)
+
     gpu_configs = [
         ("MI300X (192GB)", amd_logo, 192),
         ("H100 (80GB)", nvidia_logo, 80),
         ("MI325X (256GB)", amd_logo, 256),
-        ("H200 (141GB)", nvidia_logo, 141)
+        ("H200 (141GB)", nvidia_logo, 141),
+        ("MI355X (288GB)", amd_logo, 288),
+        ("B200 (192GB)", nvidia_logo, 192)
     ]
-    
-    for col, (gpu_name, logo, memory) in zip([col1, col2, col3, col4], gpu_configs):
+
+    for col, (gpu_name, logo, memory) in zip([col1, col2, col3, col4, col5, col6], gpu_configs):
         with col:
             st.image(logo, width=80)
             st.subheader(gpu_name)
