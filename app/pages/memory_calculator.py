@@ -91,7 +91,7 @@ with st.sidebar:
 
     if st.button("🔍 Calculate Memory Usage"):
         try:
-            st.session_state["response"] = calculate_memory(
+            training_data = calculate_memory(
                 parameters,
                 batch_size,
                 precision,
@@ -102,10 +102,31 @@ with st.sidebar:
                 tensor_parallelism,
                 optimizer,
                 percent_trainable_parameters,
-                gradient_checkpointing,
+                mode="training",
+                gradient_checkpointing=gradient_checkpointing,
             )
+            inference_data = calculate_memory(
+                parameters,
+                batch_size,
+                precision,
+                sequence_length,
+                hidden_size,
+                layer_count,
+                attention_heads,
+                tensor_parallelism,
+                optimizer,
+                percent_trainable_parameters,
+                mode="inference",
+                gradient_checkpointing=gradient_checkpointing,
+            )
+
+            response = training_data
+            response["standard_inference_total_memory_gb"] = inference_data[
+                "standard_inference_total_memory_gb"
+            ]
+            st.session_state["response"] = response
             st.success("✅ Calculation Complete!")
-        except:
+        except Exception:
             st.warning("Calculation Failed!")
 
 # Display Results
