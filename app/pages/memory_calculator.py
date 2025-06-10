@@ -202,20 +202,6 @@ if "training" in st.session_state and "inference" in st.session_state:
                 tensor_parallelism,
             )
 
-            inference_strategy = recommend_parallelism_strategy(
-                inference_data["standard_inference_total_memory_gb"],
-                inference_data["model_weights_memory"],
-                layer_count,
-                parameters,
-                memory,
-            )
-            training_strategy = recommend_parallelism_strategy(
-                training_data["standard_training_total_memory_gb"],
-                training_data["model_weights_memory"],
-                layer_count,
-                parameters,
-                memory,
-            )
 
             # Debugging: Ensure the function returns expected data
             # st.write("Debug - Inference GPU:", inference_gpu)
@@ -248,6 +234,20 @@ if "training" in st.session_state and "inference" in st.session_state:
                 )
 
             if gpu_name.startswith("MI"):
+                inference_strategy = recommend_parallelism_strategy(
+                    inference_data["standard_inference_total_memory_gb"],
+                    inference_data["model_weights_memory"],
+                    layer_count,
+                    parameters,
+                    memory,
+                )
+                training_strategy = recommend_parallelism_strategy(
+                    training_data["standard_training_total_memory_gb"],
+                    training_data["model_weights_memory"],
+                    layer_count,
+                    parameters,
+                    memory,
+                )
                 st.markdown(
                     f"""
                     <div style='border:1px solid #ccc;padding:4px;margin-top:4px;border-radius:4px;'>
