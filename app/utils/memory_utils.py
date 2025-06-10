@@ -55,40 +55,22 @@ def calculate_memory(
     tensor_parallelism: int,
     optimizer: str,
     percent_trainable_parameters: float,
+    mode: str = "training",
     gradient_checkpointing: bool = True,
 ) -> Dict[str, float]:
-    """
-    Calculates memory consumption for model training and inference.
+    """Calculate memory requirements for a given model configuration."""
 
-    Parameters:
-        parameters (float): Number of model parameters in billions.
-        batch_size (int): Batch size used for training/inference.
-        precision (str): Model precision (FP32, FP16, 8BIT, 4BIT).
-        sequence_length (int): Length of input sequences.
-        hidden_size (int): Hidden layer size.
-        layer_count (int): Number of layers in the model.
-        attention_heads (int): Number of attention heads.
-        tensor_parallelism (int): Degree of tensor parallelism.
-        optimizer (str): Optimizer type (AdamW, Adam, bitsandbytes_8bit, SGD-like).
-        percent_trainable_parameters (float): Percentage of parameters that are trainable.
-        gradient_checkpointing (bool, optional): Whether gradient checkpointing is enabled.
-            Defaults to ``True``.
-
-    Returns:
-        Dict[str, float]: Dictionary containing various memory consumption values in GB.
-    """
-    # Memory requirements per precision type (Bytes per parameter)
     precision_dict = {"FP32": 4, "FP16": 2, "8BIT": 1, "4BIT": 0.5}
     optimizer_dict = {"AdamW": 12, "Adam": 8, "bitsandbytes_8bit": 6, "SGD-like": 8}
-    parameters_billions = parameters * 1e9  # Convert billions to actual parameter count
-    bytes_to_gb_factor = 1024**3  # Factor to convert Bytes to GB
+    parameters_billions = parameters * 1e9
+    bytes_to_gb_factor = 1024**3
 
-    # Model weight memory
+    # Model weights
     model_weights_memory = (
         parameters_billions * precision_dict[precision]
     ) / bytes_to_gb_factor
 
-    # KV Cache memory
+    # KV cache
     kv_cache_memory = (
         2
         * batch_size
@@ -98,43 +80,58 @@ def calculate_memory(
         * precision_dict[precision]
     ) / bytes_to_gb_factor
 
-    # Activations memory
-    if gradient_checkpointing:
-        activations_memory = (
-            batch_size * sequence_length * hidden_size * 24 * precision_dict[precision]
-        ) / bytes_to_gb_factor
-    else:
+    # Attention overhead term
+    attention_overhead = (5 * sequence_length * attention_heads) / hidden_size
+
+    # Activation memory
+    if mode == "inference":
         activations_memory = (
             batch_size
             * sequence_length
             * hidden_size
-            * (34 + (5 * sequence_length * attention_heads) / hidden_size)
+            * (34 + attention_overhead)
             * precision_dict[precision]
-            * layer_count
         ) / bytes_to_gb_factor
+    else:
+        if gradient_checkpointing:
+            activations_memory = (
+                batch_size
+                * sequence_length
+                * hidden_size
+                * 24
+                * precision_dict[precision]
+            ) / bytes_to_gb_factor
+        else:
+            activations_memory = (
+                batch_size
+                * sequence_length
+                * hidden_size
+                * (34 + attention_overhead)
+                * precision_dict[precision]
+                * layer_count
+            ) / bytes_to_gb_factor
 
     # Optimizer memory
     optimizer_memory = (
         optimizer_dict[optimizer] * parameters_billions
     ) / bytes_to_gb_factor
 
-    # Gradient memory (always stored in FP32 precision)
+    # Gradient memory (always FP32)
     gradient_memory = (
         parameters_billions * precision_dict["FP32"]
     ) / bytes_to_gb_factor
 
-    # Total training memory
-    standard_training_total_memory_gb = (
-        model_weights_memory
-        + kv_cache_memory
-        + activations_memory
-        + ((optimizer_memory + gradient_memory) * (percent_trainable_parameters / 100))
-    ) * 1.05
-
-    # Total inference memory
-    standard_inference_total_memory_gb = (
-        model_weights_memory + kv_cache_memory + activations_memory
-    ) * 1.05
+    if mode == "inference":
+        total_memory = (
+            model_weights_memory + kv_cache_memory + activations_memory
+        ) * 1.05
+    else:
+        total_memory = (
+            model_weights_memory
+            + kv_cache_memory
+            + activations_memory
+            + ((optimizer_memory + gradient_memory) * (percent_trainable_parameters / 100))
+        ) * 1.05
 
     return {
         "model_weights_memory": model_weights_memory,
@@ -142,6 +139,6 @@ def calculate_memory(
         "activations_memory": activations_memory,
         "optimizer_memory": optimizer_memory,
         "gradient_memory": gradient_memory,
-        "standard_inference_total_memory_gb": standard_inference_total_memory_gb,
-        "standard_training_total_memory_gb": standard_training_total_memory_gb,
+        "standard_inference_total_memory_gb": total_memory if mode == "inference" else None,
+        "standard_training_total_memory_gb": total_memory if mode == "training" else None,
     }
