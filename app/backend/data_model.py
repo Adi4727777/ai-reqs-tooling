@@ -12,3 +12,4 @@ class Memory(BaseModel):
     tensor_parallelism: int = None
     optimizer: str = None
     percent_trainable_parameters: int = None
+    gradient_checkpointing: bool = True
