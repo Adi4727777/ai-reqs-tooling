@@ -178,8 +178,8 @@ if "response" in st.session_state:
             )
 
             # Debugging: Ensure the function returns expected data
-            st.write("Debug - Inference GPU:", inference_gpu)
-            st.write("Debug - Training GPU:", training_gpu)
+            # st.write("Debug - Inference GPU:", inference_gpu)
+            # st.write("Debug - Training GPU:", training_gpu)
 
             # Inference Check
             if inference_gpu.get("attention_heads_divisible", False):
