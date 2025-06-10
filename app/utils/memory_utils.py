@@ -142,3 +142,47 @@ def calculate_memory(
         "standard_inference_total_memory_gb": total_memory if mode == "inference" else None,
         "standard_training_total_memory_gb": total_memory if mode == "training" else None,
     }
+
+
+def recommend_parallelism_strategy(
+    total_memory_gb: float,
+    weights_memory_gb: float,
+    layer_count: int,
+    parameters_b: float,
+    gpu_memory_gb: float,
+) -> Dict[str, str]:
+    """Recommend a parallelism strategy based on memory fit and model depth."""
+
+    if total_memory_gb <= gpu_memory_gb:
+        return {
+            "strategy": "Data Parallelism",
+            "icon": "📊",
+            "reason": "Total memory fits on a single GPU."
+        }
+
+    if parameters_b > 100 and layer_count > 80:
+        return {
+            "strategy": "Hybrid Parallelism (TP+PP)",
+            "icon": "🧩",
+            "reason": "Model is too large for TP alone; split across layers and tensors."
+        }
+
+    if weights_memory_gb > gpu_memory_gb:
+        return {
+            "strategy": "Tensor Parallelism",
+            "icon": "🔗",
+            "reason": "Model weights exceed single GPU memory but can be split across GPUs."
+        }
+
+    if layer_count > 60:
+        return {
+            "strategy": "Pipeline Parallelism",
+            "icon": "⏩",
+            "reason": "Layer count is high and model still exceeds memory; pipeline layers across GPUs."
+        }
+
+    return {
+        "strategy": "Tensor Parallelism",
+        "icon": "🔗",
+        "reason": "Model exceeds single GPU memory; split tensors across GPUs."
+    }
