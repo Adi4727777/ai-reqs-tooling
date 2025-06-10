@@ -247,12 +247,13 @@ if "training" in st.session_state and "inference" in st.session_state:
                     "❌ Attention Heads Not Evenly Divisible - Check Tensor Parallelism"
                 )
 
-            st.markdown(
-                f"""
-                <div style='border:1px solid #ccc;padding:4px;margin-top:4px;border-radius:4px;'>
-                <span title='{inference_strategy['reason']}'>{inference_strategy['icon']} <strong>Inference: {inference_strategy['strategy']}</strong></span><br>
-                <span title='{training_strategy['reason']}'>{training_strategy['icon']} <strong>Training: {training_strategy['strategy']}</strong></span>
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
+            if gpu_name.startswith("MI"):
+                st.markdown(
+                    f"""
+                    <div style='border:1px solid #ccc;padding:4px;margin-top:4px;border-radius:4px;'>
+                    <span title='{inference_strategy['reason']}'>{inference_strategy['icon']} <strong>Inference: {inference_strategy['strategy']}</strong></span><br>
+                    <span title='{training_strategy['reason']}'>{training_strategy['icon']} <strong>Training: {training_strategy['strategy']}</strong></span>
+                    </div>
+                    """,
+                    unsafe_allow_html=True,
+                )
