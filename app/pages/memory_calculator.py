@@ -120,48 +120,48 @@ with st.sidebar:
                 gradient_checkpointing=gradient_checkpointing,
             )
 
-            response = training_data
-            response["standard_inference_total_memory_gb"] = inference_data[
-                "standard_inference_total_memory_gb"
-            ]
-            st.session_state["response"] = response
+            # Store the results for later use in the session state
+            st.session_state["training"] = training_data
+            st.session_state["inference"] = inference_data
             st.success("✅ Calculation Complete!")
         except Exception:
             st.warning("Calculation Failed!")
 
 # Display Results
-if "response" in st.session_state:
+if "training" in st.session_state and "inference" in st.session_state:
 
-    try:
-        response_data = st.session_state["response"]["Calculation"]
-    except:
-        response_data = st.session_state["response"]
+    training_data = st.session_state["training"]
+    inference_data = st.session_state["inference"]
 
     inference_tab, training_tab = st.tabs(["🚀 Inference", "🎯 Training"])
 
     with inference_tab:
         st.metric(
             label="**Total Inference Memory (GB)**",
-            value=f"{response_data['standard_inference_total_memory_gb']:.2f}",
+            value=f"{inference_data['standard_inference_total_memory_gb']:.2f}",
         )
-        st.write(f"- **Model Weights**: {response_data['model_weights_memory']:.2f} GB")
-        st.write(f"- **KV Cache**: {response_data['kv_cache_memory']:.2f} GB")
         st.write(
-            f"- **Activation Memory**: {response_data['activations_memory']:.2f} GB"
+            f"- **Model Weights**: {inference_data['model_weights_memory']:.2f} GB"
+        )
+        st.write(f"- **KV Cache**: {inference_data['kv_cache_memory']:.2f} GB")
+        st.write(
+            f"- **Activation Memory**: {inference_data['activations_memory']:.2f} GB"
         )
 
     with training_tab:
         st.metric(
             label="**Total Training Memory (GB)**",
-            value=f"{response_data['standard_training_total_memory_gb']:.2f}",
+            value=f"{training_data['standard_training_total_memory_gb']:.2f}",
         )
-        st.write(f"- **Model Weights**: {response_data['model_weights_memory']:.2f} GB")
-        st.write(f"- **KV Cache**: {response_data['kv_cache_memory']:.2f} GB")
         st.write(
-            f"- **Activation Memory**: {response_data['activations_memory']:.2f} GB"
+            f"- **Model Weights**: {training_data['model_weights_memory']:.2f} GB"
         )
-        st.write(f"- **Optimizer Memory**: {response_data['optimizer_memory']:.2f} GB")
-        st.write(f"- **Gradient Memory**: {response_data['gradient_memory']:.2f} GB")
+        st.write(f"- **KV Cache**: {training_data['kv_cache_memory']:.2f} GB")
+        st.write(
+            f"- **Activation Memory**: {training_data['activations_memory']:.2f} GB"
+        )
+        st.write(f"- **Optimizer Memory**: {training_data['optimizer_memory']:.2f} GB")
+        st.write(f"- **Gradient Memory**: {training_data['gradient_memory']:.2f} GB")
 
     st.subheader("🖥️ GPU Requirements")
     col1, col2, col3, col4, col5, col6 = st.columns(6)
@@ -184,14 +184,14 @@ if "response" in st.session_state:
 
             # Get inference/training memory distributions
             inference_gpu = llm_memory_GPU_distribution(
-                response_data["standard_inference_total_memory_gb"],
+                inference_data["standard_inference_total_memory_gb"],
                 memory,
                 8,
                 attention_heads,
                 tensor_parallelism,
             )
             training_gpu = llm_memory_GPU_distribution(
-                response_data["standard_training_total_memory_gb"],
+                training_data["standard_training_total_memory_gb"],
                 memory,
                 8,
                 attention_heads,
