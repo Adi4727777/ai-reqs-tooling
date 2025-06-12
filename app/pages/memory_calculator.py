@@ -7,6 +7,45 @@ from utils.memory_utils import (
     recommend_parallelism_strategy,
 )
 
+
+def show_strategy_if_instinct(
+    gpu_name: str,
+    memory: int,
+    inference_data: dict,
+    training_data: dict,
+    layer_count: int,
+    parameters: int,
+) -> None:
+    """Display parallelism recommendations only for Instinct GPUs."""
+
+    if not gpu_name.startswith("MI"):
+        return
+
+    inference_strategy = recommend_parallelism_strategy(
+        inference_data["standard_inference_total_memory_gb"],
+        inference_data["model_weights_memory"],
+        layer_count,
+        parameters,
+        memory,
+    )
+    training_strategy = recommend_parallelism_strategy(
+        training_data["standard_training_total_memory_gb"],
+        training_data["model_weights_memory"],
+        layer_count,
+        parameters,
+        memory,
+    )
+
+    st.markdown(
+        f"""
+        <div style='border:1px solid #ccc;padding:4px;margin-top:4px;border-radius:4px;'>
+        <span title='{inference_strategy['reason']}'>{inference_strategy['icon']} <strong>Inference: {inference_strategy['strategy']}</strong></span><br>
+        <span title='{training_strategy['reason']}'>{training_strategy['icon']} <strong>Training: {training_strategy['strategy']}</strong></span>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
 # Flag if using endpoint config
 backend_endpoint = False
 
@@ -202,20 +241,6 @@ if "training" in st.session_state and "inference" in st.session_state:
                 tensor_parallelism,
             )
 
-            inference_strategy = recommend_parallelism_strategy(
-                inference_data["standard_inference_total_memory_gb"],
-                inference_data["model_weights_memory"],
-                layer_count,
-                parameters,
-                memory,
-            )
-            training_strategy = recommend_parallelism_strategy(
-                training_data["standard_training_total_memory_gb"],
-                training_data["model_weights_memory"],
-                layer_count,
-                parameters,
-                memory,
-            )
 
             # Debugging: Ensure the function returns expected data
             # st.write("Debug - Inference GPU:", inference_gpu)
@@ -247,13 +272,11 @@ if "training" in st.session_state and "inference" in st.session_state:
                     "❌ Attention Heads Not Evenly Divisible - Check Tensor Parallelism"
                 )
 
-            if gpu_name.startswith("MI"):
-                st.markdown(
-                    f"""
-                    <div style='border:1px solid #ccc;padding:4px;margin-top:4px;border-radius:4px;'>
-                    <span title='{inference_strategy['reason']}'>{inference_strategy['icon']} <strong>Inference: {inference_strategy['strategy']}</strong></span><br>
-                    <span title='{training_strategy['reason']}'>{training_strategy['icon']} <strong>Training: {training_strategy['strategy']}</strong></span>
-                    </div>
-                    """,
-                    unsafe_allow_html=True,
-                )
+            show_strategy_if_instinct(
+                gpu_name,
+                memory,
+                inference_data,
+                training_data,
+                layer_count,
+                parameters,
+            )
