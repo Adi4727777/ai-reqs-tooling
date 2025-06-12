@@ -22,20 +22,6 @@ def show_strategy_if_instinct(
     if not gpu_name.startswith("MI"):
         return
 
-    inference_strategy = recommend_parallelism_strategy(
-        inference_data["standard_inference_total_memory_gb"],
-        inference_data["model_weights_memory"],
-        layer_count,
-        parameters,
-        memory,
-    )
-    training_strategy = recommend_parallelism_strategy(
-        training_data["standard_training_total_memory_gb"],
-        training_data["model_weights_memory"],
-        layer_count,
-        parameters,
-        memory,
-    )
 
     st.markdown(
         f"""
