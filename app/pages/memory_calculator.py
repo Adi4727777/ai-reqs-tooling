@@ -269,10 +269,12 @@ if "training" in st.session_state and "inference" in st.session_state:
                     st.warning(
                         f"⚠️ Requires {training_gpu.get('num_gpus_needed', '?')} GPUs for Training"
                     )
-            else:
+           else:
                 st.error(
                     "❌ Attention Heads Not Evenly Divisible - Check Tensor Parallelism"
                 )
+
+            # Only show strategy box for Instinct GPUs
             if gpu_name.startswith("MI"):
                 show_strategy_if_instinct(
                     gpu_name,
