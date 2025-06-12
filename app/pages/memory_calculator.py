@@ -1,3 +1,4 @@
+
 import streamlit as st
 import requests
 from PIL import Image
@@ -259,6 +260,7 @@ if "training" in st.session_state and "inference" in st.session_state:
                     "❌ Attention Heads Not Evenly Divisible - Check Tensor Parallelism"
                 )
 
+
             # Training Check
             if training_gpu.get("attention_heads_divisible", False):
                 if training_gpu.get("fits_on_one_gpu", False):
@@ -271,14 +273,12 @@ if "training" in st.session_state and "inference" in st.session_state:
                 st.error(
                     "❌ Attention Heads Not Evenly Divisible - Check Tensor Parallelism"
                 )
-
-    if gpu_name.startswith("MI"):
-        show_strategy_if_instinct(
-            gpu_name,
-            memory,
-            inference_data,
-            training_data,
-            layer_count,
-            parameters,
-        )
-
+            if gpu_name.startswith("MI"):
+                show_strategy_if_instinct(
+                    gpu_name,
+                    memory,
+                    inference_data,
+                    training_data,
+                    layer_count,
+                    parameters,
+                )
