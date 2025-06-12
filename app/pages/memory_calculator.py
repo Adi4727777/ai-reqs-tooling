@@ -272,12 +272,13 @@ if "training" in st.session_state and "inference" in st.session_state:
                     "❌ Attention Heads Not Evenly Divisible - Check Tensor Parallelism"
                 )
 
-            if gpu_name.startswith("MI"):
-                show_strategy_if_instinct(
-                    gpu_name,
-                    memory,
-                    inference_data,
-                    training_data,
-                    layer_count,
-                    parameters,
-                )
+    if gpu_name.startswith("MI"):
+        show_strategy_if_instinct(
+            gpu_name,
+            memory,
+            inference_data,
+            training_data,
+            layer_count,
+            parameters,
+        )
+
